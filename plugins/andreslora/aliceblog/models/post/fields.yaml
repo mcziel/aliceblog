@@ -28,8 +28,8 @@ fields:
         oc.commentPosition: ''
         span: full
         type: richeditor
-    category:
-        label: CATEGORIA
+    categories:
+        label: CATEGORIAS
         oc.commentPosition: ''
         nameFrom: name
         descriptionFrom: description

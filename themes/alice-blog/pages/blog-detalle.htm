@@ -45,7 +45,7 @@ function onStart()
                     <h1 class="module-title font-alt align-center" style="color: black">{{post.title}}</h1>
 					<div class="module-subtitle font-inc align-center">
 						<div class="post-meta font-inc">
-							Compartir <a style="font-size: 25px; margin: 5px" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a style="font-size: 25px;  margin: 5px" href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>  | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }} | Web Design
+							Compartir <a style="font-size: 25px; margin: 5px" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a style="font-size: 25px;  margin: 5px" href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>{% for category in post.categories %}{{category.name}}{% if loop.index <= loop.length - 1 %}, {% endif %}{% endfor %}  | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }} | Web Design
 						</div>
 					</div>
 					<div class="parrafo" style="font-size: 18px">

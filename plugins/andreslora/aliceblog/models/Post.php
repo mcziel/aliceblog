@@ -29,7 +29,7 @@ class Post extends Model
 
     public $attachOne = ['featured_image' => 'System\Models\File'];
 
-    public $belongsTo = ['category' => 'AndresLora\AliceBlog\Models\Category'];
+    public $belongsToMany = ['categories' => 'AndresLora\AliceBlog\Models\Category'];
 
     public function listStatus ($keyValue=null, $fieldName=null) 
     {

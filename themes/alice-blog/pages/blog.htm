@@ -52,7 +52,7 @@ function onStart()
 					<div class="post-header">
 						<h2 class="post-title font-alt"><a href="{{"blog-detalle"|page({url: post.url})}}">{{post.title}}</a></h2>
 						<div class="post-meta font-inc">
-							Buenas practicas, usabilidad | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }}
+							{% for category in post.categories %}{{category.name}}{% if loop.index <= loop.length - 1 %}, {% endif %}{% endfor %} | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }}
 						</div>
 					</div>
 					<div class="post-entry">
