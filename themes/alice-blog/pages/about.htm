@@ -6,8 +6,12 @@ is_hidden = 0
 <?php
 function onStart()
 {
-    $result = file_get_contents('https://api.instagram.com/v1/users/3443131693/media/recent/?access_token=3443131693.1677ed0.8dda38bf370842589d0a0c577c21a048');
-    $this['ig'] = json_decode($result);
+    $instagram = 'https://api.instagram.com/v1/users/3443131693/media/recent/?access_token=3443131693.1677ed0.8dda38bf370842589d0a0c577c21a048';
+    if(file_get_contents($instagram))
+    {
+        $result = file_get_contents($instagram);
+        $this['ig'] = json_decode($result);
+    }
     //var_dump(json_decode($result));
 }
 ?>
