@@ -1,0 +1,10 @@
+name: Category
+form: $/andreslora/aliceblog/models/category/fields.yaml
+modelClass: AndresLora\AliceBlog\Models\Category
+defaultRedirect: andreslora/aliceblog/category
+create:
+    redirect: 'andreslora/aliceblog/category/update/:id'
+    redirectClose: andreslora/aliceblog/category
+update:
+    redirect: andreslora/aliceblog/category
+    redirectClose: andreslora/aliceblog/category

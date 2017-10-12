@@ -1,0 +1,71 @@
+title = "Blog Detalle"
+url = "/blog/:url"
+layout = "Layout"
+is_hidden = 0
+==
+<?php
+use AndresLora\AliceBlog\Models\Post;
+
+function onStart()
+{
+    $this['post'] = Post::where("url",$this->param("url"))->first();
+}
+?>
+==
+{% set months = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"] %}
+<!-- WRAPPER -->
+<div class="wrapper">
+
+<!-- HOME -->
+<section class="module module-header " data-background="{{"assets/images/portada_blog.jpg"|theme}}">
+
+	<div class="container">
+		<!-- MODULE TITLE -->
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+			</div>
+		</div>
+		<!-- /MODULE TITLE -->
+
+	</div>
+</section >
+<!-- /HOME -->
+
+<!-- BLOG SINGLE -->
+<section class="module">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-sm-8 col-sm-offset-2">
+
+				<!-- POST -->
+				<div class="post">
+                    <h1 class="module-title font-alt align-center" style="color: black">{{post.title}}</h1>
+					<div class="module-subtitle font-inc align-center">
+						<div class="post-meta font-inc">
+							Compartir <a style="font-size: 25px; margin: 5px" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a style="font-size: 25px;  margin: 5px" href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>  | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }} | Web Design
+						</div>
+					</div>
+					<div class="parrafo" style="font-size: 18px">
+						{{post.description|raw}}
+					</div>
+						<div class="post-meta font-inc">
+							Compartir <a style="font-size: 25px; margin: 5px" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a style="font-size: 25px;  margin: 5px" href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> 
+						</div>
+				</div>
+				<!-- /POST -->
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+<!-- /BLOG SINGLE -->
+
+<!-- DIVIDER -->
+<hr class="divider-w">
+<!-- /DIVIDER -->

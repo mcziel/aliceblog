@@ -1,0 +1,55 @@
+fields:
+    url:
+        label: URL
+        oc.commentPosition: ''
+        span: auto
+        disabled: 1
+        type: text
+    user:
+        label: 'PUBLICADO POR'
+        oc.commentPosition: ''
+        span: auto
+        disabled: 1
+        type: text
+    title:
+        label: TITULO
+        oc.commentPosition: ''
+        span: full
+        type: text
+    short_description:
+        label: 'DESCRIPCION CORTA'
+        size: small
+        oc.commentPosition: ''
+        span: full
+        type: textarea
+    description:
+        label: DESCRIPCION
+        size: huge
+        oc.commentPosition: ''
+        span: full
+        type: richeditor
+    category:
+        label: CATEGORIA
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: full
+        type: relation
+    status:
+        label: Estado
+        oc.commentPosition: ''
+        span: full
+        type: dropdown
+        options: listStatus
+    featured_image:
+        label: 'IMAGEN PRINCIPAL'
+        oc.commentPosition: ''
+        mode: image
+        imageWidth: 100
+        imageHeight: 100
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: full
+        type: fileupload

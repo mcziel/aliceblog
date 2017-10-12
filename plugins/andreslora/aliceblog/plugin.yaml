@@ -1,0 +1,24 @@
+plugin:
+    name: 'andreslora.aliceblog::lang.plugin.name'
+    description: 'andreslora.aliceblog::lang.plugin.description'
+    author: 'Andrés Lora'
+    icon: oc-icon-pencil
+    homepage: ''
+permissions:
+    all:
+        tab: all
+        label: all
+navigation:
+    content:
+        label: Contenido
+        url: andreslora/aliceblog/post
+        icon: icon-edit
+        sideMenu:
+            posts:
+                label: Posts
+                url: andreslora/aliceblog/post
+                icon: icon-newspaper-o
+            categories:
+                label: Categorías
+                url: andreslora/aliceblog/category
+                icon: icon-list

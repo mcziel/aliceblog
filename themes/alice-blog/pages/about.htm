@@ -1,0 +1,55 @@
+title = "About"
+url = "/yo"
+layout = "Layout"
+is_hidden = 0
+==
+<?php
+function onStart()
+{
+    $result = file_get_contents('https://api.instagram.com/v1/users/3443131693/media/recent/?access_token=3443131693.1677ed0.8dda38bf370842589d0a0c577c21a048');
+    $this['ig'] = json_decode($result);
+    //var_dump(json_decode($result));
+}
+?>
+==
+<!-- WRAPPER -->
+<div class="wrapper">
+<!-- TEAM -->
+<section class="module">
+	<div class="container">
+		<!-- MODULE TITLE -->
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<h2 style="color:#000" class="module-title align-center font-alt">#CompartiendoMiPasion</h2>
+				<div class="module-subtitle align-center font-inc">
+					Mi verdadera pasion es compartir lo que apasina. Siempre que tengo la oportunidad comparto lo que me mueve, mis sueños y mis experiencias. Aqui les dejo algunas fotos para que sepan de lo que hablo.
+				</div>
+			</div>
+		</div>
+		<!-- /MODULE TITLE -->
+		<div class="row articulos-grid">
+        {% for ig in ig.data %}
+            {% if loop.index < 13 %}
+                <!-- TEAM MEMBER -->
+                <div class="col-sm-6 col-md-4 m-b-md-20 item">
+                	<div class="">
+                		<div class="">
+                			<img src="{{ig.images.standard_resolution.url}}" alt="">
+                		</div>
+                		<div class="team-descr font-inc">
+                				<!-- <h5 class="font-inc">Hi all</h5> -->
+                				<p>{{ig.caption.text}}</p>
+                		</div>
+                	</div>
+                </div>
+                <!-- /TEAM MEMBER -->
+            {% endif %}
+        {% endfor %}
+		</div>
+	</div>
+</section>
+<!-- /TEAM -->
+
+<!-- DIVIDER -->
+<hr class="divider-w">
+<!-- /DIVIDER -->

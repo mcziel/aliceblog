@@ -1,0 +1,11 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table andreslora_aliceblog_categories'
+    - builder_table_create_andreslora_aliceblog_categories.php
+1.0.3:
+    - 'Updated table andreslora_aliceblog_categories'
+    - builder_table_update_andreslora_aliceblog_categories.php
+1.0.4:
+    - 'Created table andreslora_aliceblog_posts'
+    - builder_table_create_andreslora_aliceblog_posts.php

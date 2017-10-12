@@ -1,0 +1,85 @@
+title = "Inicio"
+url = "/"
+layout = "Layout"
+is_hidden = 0
+==
+<?php
+use AndresLora\AliceBlog\Models\Post;
+
+function onStart()
+{
+    $this['posts'] = Post::get();
+}
+?>
+==
+{% set months = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"] %}
+<!-- HOME -->
+<section id="home" class="module-hero module-parallax module-fade module-full-height">
+
+<div class="hero-slider">
+	<ul class="slides">
+
+		<!-- SLIDE -->
+		<li class="bg-light">
+
+			<div class="slidebg slide-zoom bg-light" style="background-image:url({{"assets/images/portada.png"|theme}})"></div>
+
+			<div class="hs-caption container">
+				<div class="caption-content left">
+					<div class="hs-title-size-3 font-alt m-b-20">
+						¡Hola!
+					</div>
+					<div class="hs-title-size-1 font-inc">
+						Soy Alice Pérez una apasionada diseñadora de experiencia de usuario y productos digitales <br/>Estoy listas para convertir tus ideas en grandiosas aplicaciones.
+					</div>
+				</div>
+			</div>
+
+		</li>
+		<!-- /SLIDE -->
+
+	</ul>
+</div>
+
+</section >
+<!-- /HOME -->
+
+<!-- WRAPPER -->
+<div class="wrapper ">
+
+<!-- BLOG GRID -->
+<section class="module p-b-0" >
+
+	<div class="container">
+	<h2 style="margin-bottom: 40px" class="hs-title-size-3">Nuevos articulos</h2>
+		<div class="row multi-columns-row post-columns">
+            
+            {% for post in posts %}
+			<!-- POST ITEM -->
+			<div class="col-sm-6 col-md-4 col-lg-4">
+				<div class="post">
+					<div class="post-thumbnail">
+						<a href="{{"blog-detalle"|page({url: post.url})}}"><img src="{{post.featured_image.thumb(350,350)}}" alt=""></a>
+					</div>
+					<div class="post-header">
+						<h2 class="post-title font-alt"><a href="{{"blog-detalle"|page({url: post.url})}}">{{post.title}}</a></h2>
+						<div class="post-meta font-inc">
+							Buenas practicas, usabilidad | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }}
+						</div>
+					</div>
+					<div class="post-entry">
+						<p>{{post.short_description}}</p>
+					</div>
+					<div class="post-more font-inc">
+						<a href="{{"blog-detalle"|page({url: post.url})}}" class="more-link">Leer más</a>
+					</div>
+				</div>
+			</div>
+			<!-- /POST ITEM -->
+            {% endfor %}
+		
+		</div>
+
+	</div>
+
+</section>

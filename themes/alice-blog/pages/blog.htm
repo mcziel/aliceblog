@@ -1,0 +1,92 @@
+title = "Blog"
+url = "/blog"
+layout = "Layout"
+is_hidden = 0
+==
+<?php
+use AndresLora\AliceBlog\Models\Post;
+
+function onStart()
+{
+    $this['posts'] = Post::get();
+}
+?>
+==
+{% set months = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"] %}
+<!-- WRAPPER -->
+<div class="wrapper">
+
+<!-- HOME -->
+<section class="module module-header " data-background="{{"assets/images/portada_blog.jpg"|theme}}">
+
+	<div class="container">
+
+		<!-- MODULE TITLE -->
+		<div class="row">
+
+			<div class="col-sm-6 col-sm-offset-3">
+
+			</div>
+
+		</div>
+		<!-- /MODULE TITLE -->
+
+	</div>
+
+</section >
+<!-- /HOME -->
+
+<!-- BLOG GRID -->
+<section class="module p-b-0" >
+
+	<div class="container">
+		<div class="row multi-columns-row post-columns">
+
+			{% for post in posts %}
+			<!-- POST ITEM -->
+			<div class="col-sm-6 col-md-4 col-lg-4">
+				<div class="post">
+					<div class="post-thumbnail">
+						<a href="{{"blog-detalle"|page({url: post.url})}}"><img src="{{post.featured_image.thumb(350,350)}}" alt=""></a>
+					</div>
+					<div class="post-header">
+						<h2 class="post-title font-alt"><a href="{{"blog-detalle"|page({url: post.url})}}">{{post.title}}</a></h2>
+						<div class="post-meta font-inc">
+							Buenas practicas, usabilidad | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }}
+						</div>
+					</div>
+					<div class="post-entry">
+						<p>{{post.short_description}}</p>
+					</div>
+					<div class="post-more font-inc">
+						<a href="{{"blog-detalle"|page({url: post.url})}}" class="more-link">Leer más</a>
+					</div>
+				</div>
+			</div>
+			<!-- /POST ITEM -->
+            {% endfor %}
+		</div>
+	</div>
+
+</section>
+
+<!-- PAGINATION -->
+<section class="module-small p-t-10">
+
+	<div class="container">
+	
+		<div class="pagination font-inc text-uppercase">
+	
+			<a href="#"><i class="fa fa-angle-left"></i> Anterior</a>
+			<a href="#">Siguiente<i class="fa fa-angle-right"></i></a>
+	
+		</div>
+	
+	</div>
+
+</section>
+<!-- /PAGINATION -->
+
+<!-- DIVIDER -->
+<hr class="divider-w">
+<!-- /DIVIDER -->

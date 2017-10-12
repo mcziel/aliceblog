@@ -1,0 +1,10 @@
+name: Post
+form: $/andreslora/aliceblog/models/post/fields.yaml
+modelClass: AndresLora\AliceBlog\Models\Post
+defaultRedirect: andreslora/aliceblog/post
+create:
+    redirect: 'andreslora/aliceblog/post/update/:id'
+    redirectClose: andreslora/aliceblog/post
+update:
+    redirect: andreslora/aliceblog/post
+    redirectClose: andreslora/aliceblog/post

@@ -1,0 +1,6 @@
+fields:
+    name:
+        label: CATEGORIA
+        oc.commentPosition: ''
+        span: auto
+        type: text
