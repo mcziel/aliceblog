@@ -22,3 +22,7 @@ navigation:
                 label: Categorías
                 url: andreslora/aliceblog/category
                 icon: icon-list
+            gallery:
+                label: Galería
+                url: andreslora/aliceblog/gallery
+                icon: icon-image

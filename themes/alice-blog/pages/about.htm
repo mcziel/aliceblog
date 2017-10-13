@@ -4,14 +4,45 @@ layout = "Layout"
 is_hidden = 0
 ==
 <?php
+use AndresLora\AliceBlog\Models\Gallery;
+
 function onStart()
 {
-    $instagram = 'https://api.instagram.com/v1/users/3443131693/media/recent/?access_token=3443131693.1677ed0.8dda38bf370842589d0a0c577c21a048';
-    if(file_get_contents($instagram))
+    $this['images'] = Gallery::get();
+    /*
+    //$instagram = 'https://api.instagram.com/v1/tags/compartiendomipasion/media/recent/?access_token=3443131693.1677ed0.8dda38bf370842589d0a0c577c21a048';
+    //$instagram = 'https://api.instagram.com/v1/users/3443131693/media/recent/?access_token=3443131693.1677ed0.8dda38bf370842589d0a0c577c21a048';
+    
+    //GET PHOTOS BY HASHTAG AND BY USER
+    $baseUrl = 'https://www.instagram.com/explore/tags/compartiendomipasion/?__a=1';
+    $ownerid = '3443131693';
+    $photo_count = 9;
+    
+    $json = json_decode(file_get_contents($baseUrl));
+    $imageArray = array();
+    $total = count($json->tag->media->nodes);
+    $count = 1;
+    foreach ($json->tag->media->nodes as $key => $value) 
+    {
+        if ($count != $photo_count) 
+        {
+            if ($value->owner->id == $ownerid) 
+            {
+                $instagram = (object) ['thumbnail' => $value->thumbnail_src, 'image' => $value->display_src, 'code' => $value->code];
+                array_push($imageArray, $instagram);
+            }
+            $count++;
+        }
+    }
+    var_dump($imageArray);
+    $this['ig'] = $imageArray;
+    
+    
+    f(file_get_contents($instagram))
     {
         $result = file_get_contents($instagram);
         $this['ig'] = json_decode($result);
-    }
+    }*/
     //var_dump(json_decode($result));
 }
 ?>
@@ -31,24 +62,22 @@ function onStart()
 			</div>
 		</div>
 		<!-- /MODULE TITLE -->
-		<div class="row articulos-grid">
-        {% for ig in ig.data %}
-            {% if loop.index < 13 %}
-                <!-- TEAM MEMBER -->
-                <div class="col-sm-6 col-md-4 m-b-md-20 item">
-                	<div class="">
-                		<div class="">
-                			<img src="{{ig.images.standard_resolution.url}}" alt="">
-                		</div>
-                		<div class="team-descr font-inc">
-                				<!-- <h5 class="font-inc">Hi all</h5> -->
-                				<p>{{ig.caption.text}}</p>
-                		</div>
-                	</div>
-                </div>
-                <!-- /TEAM MEMBER -->
-            {% endif %}
-        {% endfor %}
+		<div class="row">
+            {% for image in images %}
+                    <!-- TEAM MEMBER -->
+                    <div class="col-sm-6 col-md-4 m-b-md-20">
+                    	<div class="">
+                    		<div class="">
+                    			<img src="{{image.image.getPath}}" alt="">
+                    		</div>
+                    		<div class="team-descr font-inc">
+                    				<h5 class="font-inc">{{image.title}}</h5>
+                    				<p>{{image.subtitle}}</p>
+                    		</div>
+                    	</div>
+                    </div>
+                    <!-- /TEAM MEMBER -->
+            {% endfor %}
 		</div>
 	</div>
 </section>

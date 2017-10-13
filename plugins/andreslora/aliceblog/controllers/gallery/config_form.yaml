@@ -1,0 +1,10 @@
+name: Gallery
+form: $/andreslora/aliceblog/models/gallery/fields.yaml
+modelClass: AndresLora\AliceBlog\Models\Gallery
+defaultRedirect: andreslora/aliceblog/gallery
+create:
+    redirect: 'andreslora/aliceblog/gallery/update/:id'
+    redirectClose: andreslora/aliceblog/gallery
+update:
+    redirect: andreslora/aliceblog/gallery
+    redirectClose: andreslora/aliceblog/gallery

@@ -1,0 +1,4 @@
+title: Gallery
+modelClass: AndresLora\AliceBlog\Models\Gallery
+toolbar:
+    buttons: reorder_toolbar

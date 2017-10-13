@@ -1,0 +1,21 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    title:
+        label: TITULO
+        type: text
+        searchable: true
+        sortable: true
+    subtitle:
+        label: SUBTITULO
+        type: text
+        searchable: true
+        sortable: true
+    created_at:
+        label: FECHA
+        type: datetime
+        searchable: true
+        sortable: true
