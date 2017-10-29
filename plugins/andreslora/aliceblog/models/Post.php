@@ -27,7 +27,7 @@ class Post extends Model
      */
     public $table = 'andreslora_aliceblog_posts';
 
-    public $attachOne = ['featured_image' => 'System\Models\File'];
+    public $attachOne = ['featured_image' => 'System\Models\File', 'featured_image_big' => 'System\Models\File'];   
 
     public $belongsToMany = ['categories' => 'AndresLora\AliceBlog\Models\Category'];
 

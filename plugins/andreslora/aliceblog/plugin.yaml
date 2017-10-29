@@ -26,3 +26,7 @@ navigation:
                 label: Galería
                 url: andreslora/aliceblog/gallery
                 icon: icon-image
+            seo:
+                label: SEO
+                url: andreslora/aliceblog/page
+                icon: icon-search

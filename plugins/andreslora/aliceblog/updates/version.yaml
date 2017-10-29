@@ -12,3 +12,6 @@
 1.0.5:
     - 'Created table andreslora_aliceblog_galleries'
     - builder_table_create_andreslora_aliceblog_galleries.php
+1.0.6:
+    - 'Created table andreslora_aliceblog_pages'
+    - builder_table_create_andreslora_aliceblog_pages.php

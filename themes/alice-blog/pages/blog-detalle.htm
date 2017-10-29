@@ -9,6 +9,7 @@ use AndresLora\AliceBlog\Models\Post;
 function onStart()
 {
     $this['post'] = Post::where("url",$this->param("url"))->first();
+    $this['url'] = Request::url();
 }
 ?>
 ==
@@ -17,7 +18,7 @@ function onStart()
 <div class="wrapper">
 
 <!-- HOME -->
-<section class="module module-header " data-background="{{"assets/images/portada_blog.jpg"|theme}}">
+<section class="module module-header " data-background="{{post.featured_image_big.getPath}}">
 
 	<div class="container">
 		<!-- MODULE TITLE -->
@@ -44,16 +45,20 @@ function onStart()
 				<div class="post">
                     <h1 class="module-title font-alt align-center" style="color: black">{{post.title}}</h1>
 					<div class="module-subtitle font-inc align-center">
-						<div class="post-meta font-inc">
-							Compartir <a style="font-size: 25px; margin: 5px" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a style="font-size: 25px;  margin: 5px" href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>{% for category in post.categories %}{{category.name}}{% if loop.index <= loop.length - 1 %}, {% endif %}{% endfor %}  | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }} | Web Design
-						</div>
+                    <div class="post-meta font-inc">
+                        Compartir 
+                        <a style="font-size: 25px; margin: 5px" href="javascript:;" data-url="{{url}}" data-image="{{post.featured_image_big.getPath}}" data-title="{{post.title}}" data-desc="{{post.description_meta}}"><i class="fa fa-facebook-square btnShare" aria-hidden="true"></i></a> 
+                        <a style="font-size: 25px;  margin: 5px" target="_blank" href="http://twitter.com/share?text={{post.title}}&url={{url}}"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                        {% for category in post.categories %}{{category.name}}{% if loop.index <= loop.length - 1 %}, {% endif %}{% endfor %}  | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }} | Web Design
+                    </div>
 					</div>
 					<div class="parrafo" style="font-size: 18px">
 						{{post.description|raw}}
 					</div>
-						<div class="post-meta font-inc">
-							Compartir <a style="font-size: 25px; margin: 5px" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a style="font-size: 25px;  margin: 5px" href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> 
-						</div>
+                 <div class="post-meta font-inc">
+    Compartir <a style="font-size: 25px; margin: 5px" href="javascript:;" data-url="{{url}}" data-image="{{post.featured_image_big.getPath}}" data-title="{{post.title}}" data-desc="{{post.description_meta}}"><i class="fa fa-facebook-square btnShare" aria-hidden="true"></i></a> 
+    <a style="font-size: 25px;  margin: 5px" target="_blank" href="http://twitter.com/share?text={{post.title}}&url={{url}}"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> 
+</div>
 				</div>
 				<!-- /POST -->
 

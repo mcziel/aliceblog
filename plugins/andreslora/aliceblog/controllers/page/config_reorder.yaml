@@ -1,0 +1,4 @@
+title: Page
+modelClass: AndresLora\AliceBlog\Models\Page
+toolbar:
+    buttons: reorder_toolbar

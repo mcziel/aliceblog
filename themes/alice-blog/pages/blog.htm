@@ -17,23 +17,23 @@ function onStart()
 <div class="wrapper">
 
 <!-- HOME -->
-<section class="module module-header " data-background="{{"assets/images/portada_blog.jpg"|theme}}">
+<!-- <section class="module module-header " data-background="{{"assets/images/portada_blog.jpg"|theme}}">
 
-	<div class="container">
+    <div class="container"> -->
 
 		<!-- MODULE TITLE -->
-		<div class="row">
+<!--         <div class="row">
 
-			<div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-6 col-sm-offset-3">
 
-			</div>
+    </div>
 
-		</div>
+</div> -->
 		<!-- /MODULE TITLE -->
+<!-- 
+    </div>
 
-	</div>
-
-</section >
+</section > -->
 <!-- /HOME -->
 
 <!-- BLOG GRID -->
@@ -47,10 +47,10 @@ function onStart()
 			<div class="col-sm-6 col-md-4 col-lg-4">
 				<div class="post">
 					<div class="post-thumbnail">
-						<a href="{{"blog-detalle"|page({url: post.url})}}"><img src="{{post.featured_image.thumb(350,350)}}" alt=""></a>
+						<a  href="{{"blog-detalle"|page({url: post.url})}}"><img src="{{post.featured_image.thumb(350,350)}}" alt=""></a>
 					</div>
 					<div class="post-header">
-						<h2 class="post-title font-alt"><a href="{{"blog-detalle"|page({url: post.url})}}">{{post.title}}</a></h2>
+						<h2 style="font-size:1.5em" class="post-title font-alt"><a href="{{"blog-detalle"|page({url: post.url})}}">{{post.title}}</a></h2>
 						<div class="post-meta font-inc">
 							{% for category in post.categories %}{{category.name}}{% if loop.index <= loop.length - 1 %}, {% endif %}{% endfor %} | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }}
 						</div>
@@ -71,7 +71,7 @@ function onStart()
 </section>
 
 <!-- PAGINATION -->
-<section class="module-small p-t-10">
+<section style="display:none;" class="module-small p-t-10">
 
 	<div class="container">
 	

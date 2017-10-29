@@ -25,16 +25,16 @@ function onStart()
 
 			<div class="slidebg slide-zoom bg-light" style="background-image:url({{"assets/images/portada.png"|theme}})"></div>
 
-			<div class="hs-caption container">
-				<div class="caption-content left">
-					<div class="hs-title-size-3 font-alt m-b-20">
-						¡Hola!
+					<div class="hs-caption container">
+						<div class="caption-content left">
+							<div style="font-size:3.5em" class="font-alt m-b-20">
+								¡Hola!
+							</div>
+							<div  style="font-size: 1.1em" class="font-inc">
+								Soy Especialista en experiencia de usuario (UX) para productos digitales  <br/> ¡Es un placer poder compartir mis conocimientos y experiencias contigo!.
+							</div>
+						</div>
 					</div>
-					<div class="hs-title-size-1 font-inc">
-						Soy Alice Pérez una apasionada diseñadora de experiencia de usuario y productos digitales <br/>Estoy listas para convertir tus ideas en grandiosas aplicaciones.
-					</div>
-				</div>
-			</div>
 
 		</li>
 		<!-- /SLIDE -->
@@ -52,7 +52,7 @@ function onStart()
 <section class="module p-b-0" >
 
 	<div class="container">
-	<h2 style="margin-bottom: 40px" class="hs-title-size-3">Nuevos articulos</h2>
+	<h2 style="margin-bottom: 40px" class="font-alt m-b-20">Nuevos articulos</h2>
 		<div class="row multi-columns-row post-columns">
             
             {% for post in posts %}
@@ -63,7 +63,7 @@ function onStart()
 						<a href="{{"blog-detalle"|page({url: post.url})}}"><img src="{{post.featured_image.thumb(350,350)}}" alt=""></a>
 					</div>
 					<div class="post-header">
-						<h2 class="post-title font-alt"><a href="{{"blog-detalle"|page({url: post.url})}}">{{post.title}}</a></h2>
+						<h2 style="font-size:1.5em" class="post-title font-alt"><a href="{{"blog-detalle"|page({url: post.url})}}">{{post.title}}</a></h2>
 						<div class="post-meta font-inc">
 							{% for category in post.categories %}{{category.name}}{% if loop.index <= loop.length - 1 %}, {% endif %}{% endfor %} | {{ post.created_at|date('d') }} {{ months[post.created_at|date('n')-1] }} {{ post.created_at|date('Y') }}
 						</div>
@@ -84,3 +84,73 @@ function onStart()
 	</div>
 
 </section>
+
+		<!-- BLOG GRID -->
+		<section style="margin-top:-120px" class="module p-b-0" >
+
+			<div class="container">
+			<h2 style="margin-bottom: 40px" class="font-alt m-b-20">Colaboraciones con otros blogs</h2>
+				<div class="row multi-columns-row post-columns">
+
+					<!-- POST ITEM -->
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<div class="post">
+							<div class="post-thumbnail">
+								<a href="http://blog.adventures.do/por-qu%C3%A9-el-dise%C3%B1o-web-tradicional-no-funciona"><img src="{{"assets/images/blog2.png"|theme}}" alt=""></a>
+							</div>
+							<div class="post-header">
+								<h2 style="font-size:1.5em" class="post-title font-alt"><a href="http://blog.adventures.do/por-qu%C3%A9-el-dise%C3%B1o-web-tradicional-no-funciona">¿Por qué el diseño web tradicional no funciona?</a></h2>
+							</div>
+							<div class="post-entry">
+								<p>En lo primero que debemos estar de acuerdo es en reconocer  que tu sitio web es el principal activo de marketing online. Con la importancia que tienen las tecnologías hoy en día y la inmensa penetración de móviles, es muy probable que el sitio web se...</p>
+							</div>
+<!--                             <div class="post-more font-inc">
+    <a href="blog-single.html" class="more-link">Leer más</a>
+</div> -->
+						</div>
+					</div>
+					<!-- /POST ITEM -->
+
+					<!-- POST ITEM -->
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<div class="post">
+							<div class="post-thumbnail">
+								<a href="http://blog.adventures.do/preguntas-que-debes-hacerte-antes-de-utilizar-una-tendencia-en-diseno-ux-"><img src="{{"assets/images/blog1.png"|theme}}" alt=""></a>
+							</div>
+							<div class="post-header">
+								<h2 style="font-size:1.5em" class="post-title font-alt"><a href="http://blog.adventures.do/preguntas-que-debes-hacerte-antes-de-utilizar-una-tendencia-en-diseno-ux-">Preguntas que debes hacerte antes de utilizar una tendencia en diseño UX</a></h2>
+							</div>
+							<div class="post-entry">
+								<p>El diseño web recibe hoy una sacudida interesante. Cada día vemos  páginas más creativas, menos “cuadradas”, con  nuevos elementos y recursos que provocan un gran  ¡wow! de admiración tanto en usuarios que los disfrutan  como en diseñadores que puede...
+</p>
+							</div>
+<!--                             <div class="post-more font-inc">
+    <a href="blog-single.html" class="more-link">Leer más</a>
+</div> -->
+						</div>
+					</div>
+					<!-- /POST ITEM -->
+				</div>
+
+			</div>
+
+		</section>
+		<!-- /BLOG GRID -->
+         <section id="contact" class="module-small" style=" background: #000; background-image:url({{"assets/images/pattern.png"|theme}});color: #fff;">
+            <div class="container">
+                <div class="row">
+                    <!-- CONTENT BOX -->
+                    <div class="col-sm-9">
+                        <h2 style="font-size: 2.5em" >¡Suscribete para recibir contenido único cada semana!</h2>
+                        <form action="https://aliceperez.us17.list-manage.com/subscribe/post?u=798a5370ded5997276a1a419c&amp;id=42b89623eb" target="_blank" method="post">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Tu correo</label>
+                            <input type="email" name="EMAIL" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="tu@correo.com">
+        
+                          <button type="submit" class="btn" style="background: #454955; color: #fff;margin-top: 10px">Enviar</button>
+                        </form>
+                    </div>
+                    <!-- /CONTENT BOX -->
+                </div>
+            </div>
+        </section>

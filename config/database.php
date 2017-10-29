@@ -58,7 +58,7 @@ return [
             'port'      => '',
             'database'  => 'aliceblog',
             'username'  => 'root',
-            'password'  => 'oorden',
+            'password'  => 'aliceperez1183',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

@@ -1,25 +1,82 @@
 ==
+<?php
+use AndresLora\AliceBlog\Models\Page; 
+function onStart()
+{
+    $this['metatags'] = Page::where("title_page", "=", $this->page->title)->first();
+    $this['url'] = Request::url();
+}
+?>
+==
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title>Alice Perez</title>
+	<meta name="author" content="Alice Pérez">
+    <!--**********************************************************************************************************-->
+    {% if metatags.title_meta and metatags.description_meta %}
+    <title>{{metatags.title_meta}}</title>
+    <meta name="description" content="{{metatags.description_meta}}" /> 
+    <!-- Schema.org markup for Google+ --> 
+    <meta itemprop="name" content="{{metatags.title_meta}}"> 
+    <meta itemprop="description" content="{{metatags.description_meta}}"> 
+    <meta name="keywords" itemprop="keywords" content="{{metatags.title_meta}}" />
+    <meta itemprop="image" content="{{metatags.meta_image.getPath}}"> 
+    <!-- Twitter Card data --> 
+    <meta name="twitter:card" content="summary_large_image"> 
+    <meta name="twitter:site" content="{{url}}"> 
+    <meta name="twitter:title" content="{{metatags.title_meta}}"> 
+    <meta name="twitter:description" content="{{metatags.description_meta}}"> 
+    <!-- Twitter summary card with large image must be at least 280x150px --> 
+    <meta name="twitter:image:src" content="{{metatags.meta_image.getPath}}"> 
+    <!-- Open Graph data --> 
+    <meta property="og:title" content="{{metatags.title_meta}}" /> 
+    <meta property="og:type" content="website" /> 
+    <meta property="og:url" content="{{url}}" /> 
+    <meta property="og:image" content="{{metatags.meta_image.getPath}}" /> 
+    <meta property="og:description" content="{{metatags.description_meta}}" /> 
+    <meta property="og:site_name" content="Alice Pérez" />
+    {% elseif post.title and post.short_description %}
+    <title>{{post.title}}</title>
+    <meta name="description" content="{{post.short_description}}" /> 
+    <!-- Schema.org markup for Google+ --> 
+    <meta itemprop="name" content="{{post.title}}"> 
+    <meta itemprop="description" content="{{post.short_description}}"> 
+    <meta name="keywords" itemprop="keywords" content="{{post.title}}" />
+    <meta itemprop="image" content="{{post.featured_image.getPath}}"> 
+    <!-- Twitter Card data --> 
+    <meta name="twitter:card" content="summary_large_image"> 
+    <meta name="twitter:site" content="{{url}}"> 
+    <meta name="twitter:title" content="{{post.title}}"> 
+    <meta name="twitter:description" content="{{post.short_description}}"> 
+    <!-- Twitter summary card with large image must be at least 280x150px --> 
+    <meta name="twitter:image:src" content="{{post.featured_image.getPath}}"> 
+    <!-- Open Graph data --> 
+    <meta property="og:title" content="{{post.title}}" /> 
+    <meta property="og:type" content="website" /> 
+    <meta property="og:url" content="{{url}}" /> 
+    <meta property="og:image" content="{{post.featured_image.getPath}}" /> 
+    <meta property="og:description" content="{{post.short_description}}" /> 
+    <meta property="og:site_name" content="Alice Pérez" />
+    {% endif %}
+    <!--**********************************************************************************************************-->
 	<link href="{{ ['assets/bootstrap/css/bootstrap.min.css','assets/css/simpletextrotator.css','assets/css/font-awesome.min.css','assets/css/et-line-font.css','assets/css/magnific-popup.css','assets/css/flexslider.css','assets/css/animate.css','assets/css/style.css','assets/css/custom.css']|theme }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="{{"assets/images/favicon.ico"|theme}}">
 </head>
 <body style="font-family: 'Dosis', sans-serif;">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10&appId=362467010850479";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
+    <!-- FACEBOOK --> 
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10&appId=362467010850479";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- /FACEBOOK --> 
 	<!-- PRELOADER -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
@@ -38,16 +95,17 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="{{"inicio"|page}}"><img style="width: 250px" src="{{"assets/images/log.png"|theme}}"></a>
+					<a class="navbar-brand" href="{{"inicio"|page}}"><img style="width: 120px" src="{{"assets/images/logo en negro.png"|theme}}"></a>
 				</div>
 
-				<div style="padding-top:25px" class="collapse navbar-collapse" id="custom-collapse">
+				<div  class="collapse navbar-collapse" id="custom-collapse">
 
 					<ul class="nav navbar-nav navbar-right">
 
 					    <li><a href="{{"about"|page}}">#compartiendoMiPasion</a></li>
 
 						<li><a href="{{"blog"|page}}">Blog</a></li>
+						<li><a href="http://aliceperez.com.do/storage/app/media/cv.pdf">CV</a></li>
 
 						<li><a href="https://dribbble.com/aliceperez"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
 
@@ -68,7 +126,7 @@
     {% page %}
 
 		<!-- CONTACT -->
-		<section id="contact" class="module-small" style="background: #000; color: #fff;">
+		<section id="contact" class="module-small" style="background: #fff; color: #000;">
 
 			<div class="container">
 
@@ -165,6 +223,16 @@
 	<script src="{{"assets/js/contact.js"|theme}}"></script>
 	<script src="{{"assets/js/custom.js"|theme}}"></script>
 	<script src="{{"assets/js/masonry.pkgd.min.js"|theme}}"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108370741-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-108370741-1');
+    </script>
+    <!-- /Global site tag (gtag.js) - Google Analytics -->
 	<script>
 	    $(window).load(function(){
             $('.articulos-grid').masonry({
@@ -172,8 +240,31 @@
               itemSelector: '.item'
             });
         });
-
 	</script>
+    <script>
+    
+        $('.btnShare').click(function(){
+            var elem = $(this).parent();
+            var obj = {
+              method: 'feed',
+              redirect_uri:elem.data('url'),
+              link:elem.data('url'),
+              picture: elem.data('image'),
+              name: elem.data('title'),
+              caption: 'Reference Documentation',
+              description: elem.data('desc')
+            };
+            FB.ui(obj);
+            return false;
+        });
+        window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '362467010850479',
+              xfbml      : true,
+              version    : 'v2.8'
+            });
+        };
+    </script>
 	<!-- ,'assets/bootstrap/js/bootstrap.min.js','assets/js/jquery.mb.YTPlayer.min.js','assets/js/appear.js','assets/js/jquery.simple-text-rotator.min.js','assets/js/jqBootstrapValidation.js','assets/js/maps.js','assets/js/gmaps.js','assets/js/isotope.pkgd.min.js','assets/js/imagesloaded.pkgd.js','assets/js/jquery.flexslider-min.js','assets/js/jquery.magnific-popup.min.js','assets/js/jquery.fitvids.js','assets/js/smoothscroll.js','assets/js/wow.min.js','assets/js/contact.js','assets/js/custom.js'-->
 
 </body>

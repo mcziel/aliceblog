@@ -1,0 +1,11 @@
+list: $/andreslora/aliceblog/models/page/columns.yaml
+modelClass: AndresLora\AliceBlog\Models\Page
+title: Page
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'andreslora/aliceblog/page/update/:id'

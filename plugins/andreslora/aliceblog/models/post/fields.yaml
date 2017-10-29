@@ -53,3 +53,15 @@ fields:
             extension: auto
         span: full
         type: fileupload
+    featured_image_big:
+        label: 'IMAGEN PRINCIPAL GRANDE'
+        oc.commentPosition: ''
+        mode: image
+        imageWidth: 100
+        imageHeight: 100
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: full
+        type: fileupload

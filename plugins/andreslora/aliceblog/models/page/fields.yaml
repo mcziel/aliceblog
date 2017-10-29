@@ -1,0 +1,35 @@
+fields:
+    title_page:
+        label: PAGINA
+        oc.commentPosition: ''
+        span: full
+        disabled: 0
+        type: text
+    title:
+        label: 'TITULO (TITLE)'
+        oc.commentPosition: ''
+        span: full
+        type: text
+    title_meta:
+        label: 'TITULO (META)'
+        oc.commentPosition: ''
+        span: full
+        type: text
+    description_meta:
+        label: 'DESCRIPCION (META)'
+        size: large
+        oc.commentPosition: ''
+        span: full
+        type: textarea
+    meta_image:
+        label: IMAGEN
+        oc.commentPosition: ''
+        mode: image
+        imageWidth: 100
+        imageHeight: 100
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: full
+        type: fileupload

@@ -1,4 +1,4 @@
-title = "About"
+title = "Yo"
 url = "/yo"
 layout = "Layout"
 is_hidden = 0
@@ -62,16 +62,16 @@ function onStart()
 			</div>
 		</div>
 		<!-- /MODULE TITLE -->
-		<div class="row">
+		<div class="row articulos-grid">
             {% for image in images %}
                     <!-- TEAM MEMBER -->
-                    <div class="col-sm-6 col-md-4 m-b-md-20">
+                    <div class="col-sm-6 col-md-4 m-b-md-20 item">
                     	<div class="">
                     		<div class="">
-                    			<img src="{{image.image.getPath}}" alt="">
+                    			<img  src="{{image.image.getPath}}" alt="">
                     		</div>
                     		<div class="team-descr font-inc">
-                    				<h5 class="font-inc">{{image.title}}</h5>
+                    				<h5 style="font-weight:700" class="font-inc">{{image.title}}</h5>
                     				<p>{{image.subtitle}}</p>
                     		</div>
                     	</div>
