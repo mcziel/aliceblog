@@ -8,7 +8,7 @@ use AndresLora\AliceBlog\Models\Post;
 
 function onStart()
 {
-    $this['posts'] = Post::get();
+    $this['posts'] = Post::orderBy("id","DESC")->get();
 }
 ?>
 ==

@@ -31,9 +31,8 @@ return [
         'link' => 'Ссылка',
         'horizontalrule' => 'Вставить горизонтальную черту',
         'fullscreen' => 'Полный экран',
-        'preview' => 'Предпросмотр',
+        'preview' => 'Предпросмотр'
     ],
-
     'mediamanager' => [
         'insert_link' => "Вставить медиа-ссылку",
         'insert_image' => "Вставить медиа-изображение",
@@ -45,7 +44,6 @@ return [
         'invalid_video_empty_insert' => "Пожалуйста, выберите видео для вставки.",
         'invalid_audio_empty_insert' => "Пожалуйста, выберите аудио для вставки.",
     ],
-
     'alert' => [
         'confirm_button_text' => 'Ок',
         'cancel_button_text' => 'Отмена',
@@ -56,7 +54,10 @@ return [
         'nextMonth' => 'Следующий месяц',
         'months' => ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
         'weekdays' => ['Воскресение', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-        'weekdaysShort' => ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+        'weekdaysShort' => ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+    ],
+    'colorpicker' => [
+        'choose' => 'ОК',
     ],
     'filter' => [
         'group' => [
@@ -65,10 +66,17 @@ return [
         'dates' => [
             'all' => 'все',
             'filter_button_text' => 'Фильтр',
-            'reset_button_text'  => 'Сбросить',
+            'reset_button_text' => 'Сбросить',
             'date_placeholder' => 'Дата',
             'after_placeholder' => 'После',
             'before_placeholder' => 'До'
+        ],
+        'numbers' => [
+            'all' => 'все',
+            'filter_button_text' => 'Фильтр',
+            'reset_button_text'  => 'Сброс',
+            'min_placeholder' => 'Min',
+            'max_placeholder' => 'Max'
         ]
     ],
     'eventlog' => [
@@ -76,7 +84,7 @@ return [
         'hide_stacktrace' => 'Скрыть трассировку стека',
         'tabs' => [
             'formatted' => 'Форматированный',
-            'raw' => 'Исходный',
+            'raw' => 'Исходный'
         ],
         'editor' => [
             'title' => 'Редактор исходного кода',
@@ -84,7 +92,7 @@ return [
             'openWith' => 'Открыть с помощью',
             'remember_choice' => 'Запомнить выбранный вариант для этой сессии',
             'open' => 'Открыть',
-            'cancel' => 'Отменить'
-        ]
-    ]
+            'cancel' => 'Отмена'
+        ],
+    ],
 ];

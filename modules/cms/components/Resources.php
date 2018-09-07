@@ -26,6 +26,11 @@ class Resources extends ComponentBase
     public $lessDir = 'less';
 
     /**
+     * @var string The default SASS directory
+     */
+    public $sassDir = 'sass';
+
+    /**
      * @return array
      */
     public function componentDetails()
@@ -54,6 +59,12 @@ class Resources extends ComponentBase
                 'type'              => 'stringList',
                 'showExternalParam' => false
             ],
+            'sass' => [
+                'title'             => 'SASS',
+                'description'       => 'SASS file(s) in the assets/sass folder',
+                'type'              => 'stringList',
+                'showExternalParam' => false
+            ],
             'css' => [
                 'title'             => 'CSS',
                 'description'       => 'Stylesheet file(s) in the assets/css folder',
@@ -73,6 +84,7 @@ class Resources extends ComponentBase
     {
         $this->assetPath = $this->guessAssetPath();
         $this->jsDir = $this->guessAssetDirectory(['js', 'javascript'], $this->jsDir);
+        $this->sassDir = $this->guessAssetDirectory(['sass', 'scss'], $this->sassDir);
     }
 
     public function onRun()
@@ -94,6 +106,14 @@ class Resources extends ComponentBase
         }
 
         /*
+         * SASS
+         */
+        $sass = [];
+        if ($assets = $this->property('sass')) {
+            $sass += array_map([$this, 'prefixSass'], (array) $assets);
+        }
+
+        /*
          * CSS
          */
         $css = [];
@@ -107,6 +127,10 @@ class Resources extends ComponentBase
 
         if (count($less)) {
             $this->addCss(CombineAssets::combine($less, $this->assetPath));
+        }
+
+        if (count($sass)) {
+            $this->addCss(CombineAssets::combine($sass, $this->assetPath));
         }
 
         if (count($css)) {
@@ -138,6 +162,11 @@ class Resources extends ComponentBase
         return $this->lessDir.'/'.trim($value);
     }
 
+    protected function prefixSass($value)
+    {
+        return $this->sassDir.'/'.trim($value);
+    }
+
     protected function guessAssetDirectory(array $possible, $default = null)
     {
         foreach ($possible as $option) {
@@ -156,8 +185,7 @@ class Resources extends ComponentBase
         if (File::isDirectory($baseTheme.'/assets')) {
             return $baseTheme.'/assets';
         }
-        else {
-            return $baseTheme.'/resources';
-        }
+
+        return $baseTheme.'/resources';
     }
 }

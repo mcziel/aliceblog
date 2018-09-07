@@ -8,7 +8,7 @@ use AndresLora\AliceBlog\Models\Post;
 
 function onStart()
 {
-    $this['posts'] = Post::get();
+    $this['posts'] = Post::orderBy("id","DESC")->get();
     //var_dump($this['posts']);
 }
 ?>
@@ -27,11 +27,15 @@ function onStart()
 
 					<div class="hs-caption container">
 						<div class="caption-content left">
-							<div style="font-size:3.5em" class="font-alt m-b-20">
+							<div style="font-size:8em" class="font-alt m-b-20">
 								¡Hola!
 							</div>
 							<div  style="font-size: 1.1em" class="font-inc">
 								Soy Especialista en experiencia de usuario (UX) para productos digitales  <br/> ¡Es un placer poder compartir mis conocimientos y experiencias contigo!.
+							</div>
+							<div style="margin-bottom:100px; margin-top:20px;">
+							   <a href="{{"about"|page}}" class="btn" style="background: #000;border:solid #000; color: #fff;margin-top: 10px; padding 15px">Conocer más sobre mi</a>
+							   <a href="{{"blog"|page}}" class="btn" style="background: #fff;border:solid #000; color: #000;margin-top: 10px; padding 15px">ir al blog</a>
 							</div>
 						</div>
 					</div>

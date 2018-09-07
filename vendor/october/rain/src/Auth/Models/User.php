@@ -1,5 +1,6 @@
 <?php namespace October\Rain\Auth\Models;
 
+use Str;
 use Hash;
 use October\Rain\Database\Model;
 use InvalidArgumentException;
@@ -33,7 +34,11 @@ class User extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'groups' => ['October\Rain\Auth\Models\Group', 'table' => 'users_groups']
+        'groups' => [Group::class, 'table' => 'users_groups']
+    ];
+
+    public $belongsTo = [
+        'role' => Role::class
     ];
 
     /**
@@ -51,7 +56,7 @@ class User extends Model
     /**
      * @var array The attributes that aren't mass assignable.
      */
-    protected $guarded = ['is_superuser', 'reset_password_code', 'activation_code', 'persist_code'];
+    protected $guarded = ['is_superuser', 'reset_password_code', 'activation_code', 'persist_code', 'role_id'];
 
     /**
      * @var array List of attribute names which should be hashed using the Bcrypt hashing algorithm.
@@ -94,11 +99,6 @@ class User extends Model
      * @var string The login attribute.
      */
     public static $loginAttribute = 'email';
-
-    /**
-     * @var array The user groups.
-     */
-    protected $userGroups;
 
     /**
      * @var array The user merged permissions.
@@ -224,8 +224,9 @@ class User extends Model
      */
     public function attemptActivation($activationCode)
     {
-        if ($this->is_activated)
+        if ($this->is_activated) {
             throw new Exception('User is already active!');
+        }
 
         if ($activationCode == $this->activation_code) {
             $this->activation_code = null;
@@ -270,6 +271,10 @@ class User extends Model
      */
     public function checkResetPasswordCode($resetCode)
     {
+        if (!$resetCode || !$this->reset_password_code) {
+            return false;
+        }
+
         return ($this->reset_password_code == $resetCode);
     }
 
@@ -319,7 +324,7 @@ class User extends Model
     }
 
     //
-    // Permissions & Groups
+    // Permissions, Groups & Role
     //
 
     /**
@@ -328,10 +333,16 @@ class User extends Model
      */
     public function getGroups()
     {
-        if (!$this->userGroups)
-            $this->userGroups = $this->groups()->get();
+        return $this->groups;
+    }
 
-        return $this->userGroups;
+    /**
+     * Returns the role assigned to this user.
+     * @return October\Rain\Auth\Models\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 
     /**
@@ -343,7 +354,7 @@ class User extends Model
     {
         if (!$this->inGroup($group)) {
             $this->groups()->attach($group);
-            $this->userGroups = null;
+            $this->reloadRelations('groups');
         }
 
         return true;
@@ -358,7 +369,7 @@ class User extends Model
     {
         if ($this->inGroup($group)) {
             $this->groups()->detach($group);
-            $this->userGroups = null;
+            $this->reloadRelations('groups');
         }
 
         return true;
@@ -389,12 +400,10 @@ class User extends Model
         if (!$this->mergedPermissions) {
             $permissions = [];
 
-            foreach ($this->getGroups() as $group) {
-                if (!is_array($group->permissions)) {
-                    continue;
+            if ($role = $this->getRole()) {
+                if (is_array($role->permissions)) {
+                    $permissions = array_merge($permissions, $role->permissions);
                 }
-
-                $permissions = array_merge($permissions, $group->permissions);
             }
 
             if (is_array($this->permissions)) {
@@ -640,21 +649,6 @@ class User extends Model
      */
     public function getRandomString($length = 42)
     {
-        /*
-         * Use OpenSSL (if available)
-         */
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            $bytes = openssl_random_pseudo_bytes($length * 2);
-
-            if ($bytes === false) {
-                throw new RuntimeException('Unable to generate a random string');
-            }
-
-            return substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $length);
-        }
-
-        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+        return Str::random($length);
     }
 }

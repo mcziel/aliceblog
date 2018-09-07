@@ -148,7 +148,7 @@ class Controller
             $url = Request::path();
         }
 
-        if (!strlen($url)) {
+        if (empty($url)) {
             $url = '/';
         }
 
@@ -156,10 +156,8 @@ class Controller
          * Hidden page
          */
         $page = $this->router->findByUrl($url);
-        if ($page && $page->is_hidden) {
-            if (!BackendAuth::getUser()) {
-                $page = null;
-            }
+        if ($page && $page->is_hidden && !BackendAuth::getUser()) {
+            $page = null;
         }
 
         /*
@@ -337,6 +335,7 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
+            ($this->verifyCsrfToken()) &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -487,11 +486,14 @@ class Controller
 
         $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
+        $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
+        $strictVariables = is_null($strictVariables) ? $isDebugMode : $strictVariables;
         $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
         $options = [
             'auto_reload' => true,
             'debug' => $isDebugMode,
+            'strict_variables' => $strictVariables,
         ];
 
         if ($useCache) {
@@ -685,6 +687,28 @@ class Controller
      */
     protected function runAjaxHandler($handler)
     {
+        /**
+        * @event cms.ajax.beforeRunHandler
+        * Provides an opportunity to modify an AJAX request
+        *
+        * The parameter provided is `$handler` (the requested AJAX handler to be run)
+        *
+        * Example usage (forwards AJAX handlers to a backend widget):
+        *
+        *     $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) {
+        *         if (strpos($handler, '::')) {
+        *             list($componentAlias, $handlerName) = explode('::', $handler);
+        *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+        *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+        *             }
+        *         }
+        *     });
+        *
+        */
+        if ($event = $this->fireSystemEvent('cms.ajax.beforeRunHandler', [$handler])) {
+            return $event;
+        }
+
         /*
          * Process Component handler
          */
@@ -721,6 +745,13 @@ class Controller
                 $result = $componentObj->runAjaxHandler($handler);
                 return ($result) ?: true;
             }
+        }
+
+        /*
+         * Generic handler that does nothing
+         */
+        if ($handler == 'onAjax') {
+            return true;
         }
 
         return false;
@@ -818,8 +849,7 @@ class Controller
              * Check if the theme has an override
              */
             if (strpos($partialName, '/') === false) {
-                $overrideName = $componentObj->alias . '/' . $partialName;
-                $partial = Partial::loadCached($this->theme, $overrideName);
+                $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
             }
 
             /*
@@ -1022,6 +1052,15 @@ class Controller
     // Getters
     //
 
+     /**
+     * Returns the status code for the current web response.
+     * @return int Status code
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
     /**
      * Returns an existing instance of the controller.
      * If the controller doesn't exists, returns null.
@@ -1174,16 +1213,6 @@ class Controller
         }
 
         return $_url;
-    }
-
-    /**
-     * Converts supplied file to a URL relative to the media library.
-     * @param string $file Specifies the media-relative file
-     * @return string
-     */
-    public function mediaUrl($file = null)
-    {
-        return MediaLibrary::url($file);
     }
 
     /**
@@ -1349,5 +1378,37 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
+    }
+
+    //
+    // Security
+    //
+
+    /**
+     * Checks the request data / headers for a valid CSRF token.
+     * Returns false if a valid token is not found. Override this
+     * method to disable the check.
+     * @return bool
+     */
+    protected function verifyCsrfToken()
+    {
+        if (!Config::get('cms.enableCsrfProtection')) {
+            return true;
+        }
+
+        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
+            return true;
+        }
+
+        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        if (!strlen($token)) {
+            return false;
+        }
+
+        return hash_equals(
+            Session::token(),
+            $token
+        );
     }
 }
